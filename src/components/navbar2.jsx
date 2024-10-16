@@ -1,8 +1,9 @@
-import React, { useState ,memo} from 'react';
+import React, { useState, memo } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import Imagesearch from './Imagesearch'; // Import the search bar component
 import { Link } from 'react-router-dom'; // Import Link for navigation
 
-const Navbar2 = memo(() => {
+const Navbar2 = memo(({ searchText }) => {
   const [nav, setNav] = useState(false);
 
   const handleNav = () => {
@@ -11,31 +12,32 @@ const Navbar2 = memo(() => {
 
   const navItems = [
     { id: 1, text: 'Home', path: '/' },
-    { id: 2, text: 'Uploads', path: '' }, // Assuming you will create this route
-    { id: 3, text: 'Resources', path: '' }, // Assuming you will create this route
+    { id: 2, text: 'Uploads', path: '/uploads' },
+    { id: 3, text: 'Resources', path: '/resources' },
     { id: 4, text: 'About', path: '/about' },
-    { id: 5, text: 'Contact', path: '' }, // Assuming you will create this route
+    { id: 5, text: 'Contact', path: '/contact' },
   ];
 
   return (
-    <div className='bg-white mt-2 mb-9 flex justify-between items-center h-24 max-w-[2040px] mx-auto px-4 text-black border-2 border-black'>
+    <div className='bg-white mt-1 mb-8 flex justify-between items-center h-20 max-w-[1800px] mx-auto px-3 text-black border-2 border-black'>
       {/* Logo */}
-      <h1 className='text-3xl font-bold text-black font-sans md:font-serif'>BLUME</h1>
+      <h1 className='text-2xl font-bold text-black font-serif'>BLUME</h1>
 
       {/* Navigation and Search Container */}
-      <div className='flex items-center w-full justify-end'>
+      <div className='flex items-center flex-grow'>
         {/* Desktop Navigation */}
-        <ul className='hidden md:flex gap-3 ml-44 mr-44 text-xl font-semibold'>
+        <ul className='hidden md:flex gap-3 flex-grow justify-center text-lg font-medium'>
           {navItems.map(item => (
-            <li key={item.id} className='p-4 hover:bg-black m-2 cursor-pointer duration-300 hover:text-white border-2 border-black'>
-              <Link to={item.path}>{item.text}</Link> {/* Link each item */}
+            <li key={item.id} className='px-2 py-1 hover:bg-black cursor-pointer duration-300 hover:text-white border-2 border-black'>
+              <Link to={item.path}>{item.text}</Link>
             </li>
           ))}
         </ul>
 
         {/* Search Bar */}
-        <div className='mr-64'></div>
-
+        <div className='ml-auto'>
+          <Imagesearch searchText={searchText} />
+        </div>
       </div>
 
       {/* Mobile Navigation Icon */}
@@ -45,19 +47,25 @@ const Navbar2 = memo(() => {
 
       {/* Mobile Navigation Menu */}
       <ul
-        className={
-          nav
-            ? 'fixed md:hidden left-0 top-0 w-[60%] h-full border-r border-white bg-white ease-in-out duration-500 z-50'
-            : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%] z-50'
-        }
+        className={`${
+          nav ? 'left-0' : 'left-[-100%]'
+        } fixed md:hidden top-0 w-[60%] h-full border-r border-black bg-white ease-in-out duration-500 z-50`}
       >
         {/* Mobile Logo */}
-        <h1 className='text-3xl bg-white font-bold text-black m-4'>BLUME</h1>
+        <h1 className='text-2xl font-bold text-black m-4'>BLUME</h1>
         {navItems.map(item => (
-          <li key={item.id} className='p-4 border-b hover:bg-black duration-300 hover:text-white cursor-pointer border-black'>
-            <Link to={item.path}>{item.text}</Link> {/* Link each item */}
+          <li
+            key={item.id}
+            className='p-3 border-b border-black hover:bg-black hover:text-white duration-300 cursor-pointer'
+            onClick={() => setNav(false)} // Close menu on link click
+          >
+            <Link to={item.path}>{item.text}</Link>
           </li>
         ))}
+        {/* Mobile Search Bar */}
+        <div className='p-3'>
+          <Imagesearch searchText={searchText} />
+        </div>
       </ul>
     </div>
   );

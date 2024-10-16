@@ -28,7 +28,7 @@ const ImageShow =(()=>
 
 {!isLoad && images.length === 0 && <h1 className="text-5xl text-center mx-auto mt-32">No Images Found</h1> }
   { isLoad ?<Shimmer/>:
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 border-2 border-black ps-7 py-4'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 border-2 border-black py-4 px-7'>
 {images.map(image=>(
   <Imagecard key ={image.id} image={image}  />
 ))}
