@@ -12,10 +12,10 @@ const Navbar = memo(({ searchText }) => {
 
   const navItems = [
     { id: 1, text: 'Home', path: '/' },
-    { id: 2, text: 'Uploads', path: '/uploads' },
-    { id: 3, text: 'Resources', path: '/resources' },
+    { id: 2, text: 'Uploads', path: '' },
+    { id: 3, text: 'Resources', path: '' },
     { id: 4, text: 'About', path: '/about' },
-    { id: 5, text: 'Contact', path: '/contact' },
+    { id: 5, text: 'Contact', path: '' },
   ];
 
   return (
